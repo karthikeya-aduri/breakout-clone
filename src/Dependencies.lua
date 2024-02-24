@@ -5,8 +5,11 @@ Class = require('lib.class')
 
 require('src.Constants')
 
+require('src.LevelMaker')
+
 require('src.classes.Paddle')
 require('src.classes.Ball')
+require('src.classes.Brick')
 
 require('src.Util')
 
