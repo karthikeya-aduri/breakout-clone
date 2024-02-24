@@ -17,7 +17,11 @@ function love.load()
         ['main'] = love.graphics.newImage('graphics/breakout.png'),
         ['arrows'] = love.graphics.newImage('graphics/arrows.png'),
         ['hearts'] = love.graphics.newImage('graphics/hearts.png'),
-        ['particles'] = love.graphics.newImage('graphics/particle.png')
+        ['particle'] = love.graphics.newImage('graphics/particle.png')
+    }
+
+    Gframes = {
+        ['paddle'] = GenerateQuadsPaddles(Gtextures['main'])
     }
 
     Push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
@@ -45,7 +49,8 @@ function love.load()
     }
 
     GstateMachine = StateMachine {
-        ['start'] = function() return StartState() end
+        ['start'] = function() return StartState() end,
+        ['play'] = function() return PlayState() end
     }
     GstateMachine:change('start')
 

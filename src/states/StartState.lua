@@ -8,6 +8,13 @@ function StartState:update(dt)
         Gsounds['select']:play()
     end
 
+    if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
+        Gsounds['confirm']:play()
+        if highlighted==0 then
+            GstateMachine:change('play')
+        end
+    end
+
     if love.keyboard.wasPressed('escape') then
         love.event.quit()
     end
