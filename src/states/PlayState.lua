@@ -1,17 +1,15 @@
 PlayState = Class{__includes=BaseState}
 
-function PlayState:init()
-    self.paddle = Paddle()
+function PlayState:enter(params)
+    self.paddle = params.paddle
+    self.ball = params.ball
+    self.health = params.health
+    self.score = params.score
+    self.bricks = params.bricks
 
-    self.ball = Ball(math.random(7))
     self.ball.dx = math.random(-200, 200)
     self.ball.dy = math.random(-60, -30)
-    self.ball.x = VIRTUAL_WIDTH/2-4
-    self.ball.y = VIRTUAL_HEIGHT-42
-
     self.paused = false
-
-    self.bricks = LevelMaker:createMap()
 end
 
 function PlayState:update(dt)
@@ -45,6 +43,7 @@ function PlayState:update(dt)
 
     for k, brick in pairs(self.bricks) do
         if brick.inPlay and self.ball:collides(brick) then
+            self.score = self.score + 10
             brick:hit()
             if self.ball.x + 2 < brick.x and self.ball.dx > 0 then
                 self.ball.x = brick.x - 8
@@ -64,6 +63,21 @@ function PlayState:update(dt)
         end
     end
 
+    if self.ball.y >= VIRTUAL_HEIGHT then
+        self.health = self.health - 1
+        Gsounds['crash']:play()
+        if self.health==0 then
+            GstateMachine:change('gameover', {score = self.score})
+        else
+            GstateMachine:change('serve',{
+                paddle = self.paddle,
+                bricks = self.bricks,
+                health = self.health,
+                score = self.score
+            })
+        end
+    end
+
     if love.keyboard.wasPressed('escape') then
         love.event.quit()
     end
@@ -76,6 +90,10 @@ function PlayState:render()
 
     self.paddle:render()
     self.ball:render()
+
+    RenderScore(self.score)
+    RenderHealth(self.health)
+
     if self.paused then
         love.graphics.setFont(Gfonts['large'])
         love.graphics.printf('PAUSED', 0, VIRTUAL_HEIGHT/2-16, VIRTUAL_WIDTH, 'center')

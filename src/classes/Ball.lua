@@ -1,13 +1,13 @@
 Ball = Class{}
 
-function Ball:init(skin)
+function Ball:init()
     self.width = 8
     self.height = 8
 
     self.dx = 0
     self.dy = 0
 
-    self.skin = skin
+    self.skin = 1
 end
 
 function Ball:collides(target)
