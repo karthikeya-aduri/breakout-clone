@@ -6,6 +6,7 @@ Class = require('lib.class')
 require('src.Constants')
 
 require('src.classes.Paddle')
+require('src.classes.Ball')
 
 require('src.Util')
 

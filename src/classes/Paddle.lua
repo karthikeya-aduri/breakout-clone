@@ -30,5 +30,5 @@ function Paddle:update(dt)
 end
 
 function Paddle:render()
-    love.graphics.draw(Gtextures['main'], Gframes['paddle'][self.size + 4*(self.skin-1)], self.x, self.y)
+    love.graphics.draw(Gtextures['main'], Gframes['paddles'][self.size + 4*(self.skin-1)], self.x, self.y)
 end
