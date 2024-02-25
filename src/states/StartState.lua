@@ -2,6 +2,10 @@ StartState = Class{__includes = BaseState}
 
 local highlighted = 0
 
+function StartState:enter(params)
+    self.highScores = params.highScores
+end
+
 function StartState:update(dt)
     if love.keyboard.wasPressed('up') or love.keyboard.wasPressed('down') then
         highlighted = (highlighted+1)%2
@@ -18,6 +22,8 @@ function StartState:update(dt)
                 score = 0,
                 level = 1
             })
+        else
+            GstateMachine:change('highscore', {highScores = self.highScores})
         end
     end
 
