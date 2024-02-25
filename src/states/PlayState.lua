@@ -10,7 +10,7 @@ function PlayState:enter(params)
     self.highScores = params.highScores
 
     self.ball.dx = math.random(-200, 200)
-    self.ball.dy = math.random(-60, -30)
+    self.ball.dy = math.random(-100, -80)
     self.paused = false
 end
 
