@@ -6,6 +6,7 @@ function PlayState:enter(params)
     self.health = params.health
     self.score = params.score
     self.bricks = params.bricks
+    self.level = params.level
 
     self.ball.dx = math.random(-200, 200)
     self.ball.dy = math.random(-60, -30)
@@ -45,6 +46,16 @@ function PlayState:update(dt)
         if brick.inPlay and self.ball:collides(brick) then
             self.score = self.score + (brick.tier*200 + brick.color*25)
             brick:hit()
+            if self:checkVictory() then
+                Gsounds['victory']:play()
+                GstateMachine:change('victory',{
+                    level = self.level,
+                    paddle = self.paddle,
+                    health = self.health,
+                    score = self.score,
+                    ball = self.ball
+                })
+            end
             if self.ball.x + 2 < brick.x and self.ball.dx > 0 then
                 self.ball.x = brick.x - 8
                 self.ball.dx = -self.ball.dx
@@ -73,7 +84,8 @@ function PlayState:update(dt)
                 paddle = self.paddle,
                 bricks = self.bricks,
                 health = self.health,
-                score = self.score
+                score = self.score,
+                level = self.level
             })
         end
     end
@@ -85,6 +97,15 @@ function PlayState:update(dt)
     if love.keyboard.wasPressed('escape') then
         love.event.quit()
     end
+end
+
+function PlayState:checkVictory()
+    for k, brick in pairs(self.bricks) do
+        if brick.inPlay then
+            return false
+        end
+    end
+    return true
 end
 
 function PlayState:render()

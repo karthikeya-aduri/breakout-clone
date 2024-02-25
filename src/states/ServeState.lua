@@ -5,6 +5,7 @@ function ServeState:enter(params)
     self.bricks = params.bricks
     self.health = params.health
     self.score = params.score
+    self.level = params.level
 
     self.ball = Ball(math.random(7))
 end
@@ -20,7 +21,8 @@ function ServeState:update(dt)
             ball = self.ball,
             health = self.health,
             score = self.score,
-            bricks = self.bricks
+            bricks = self.bricks,
+            level = self.level
         })
     elseif love.keyboard.wasPressed('escape') then
         love.event.quit()
