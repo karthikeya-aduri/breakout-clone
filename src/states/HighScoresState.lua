@@ -18,7 +18,7 @@ function HighScoresState:render()
     love.graphics.setFont(Gfonts['medium'])
     for i = 1, 10 do
         local name = self.highScores[i].name or '---'
-        local score = self.highScores[i].score or '---'
+        local score = self.highScores[i].score
 
         love.graphics.printf(tostring(i)..'.', VIRTUAL_WIDTH/4, 60+i*13, 50, 'left')
         love.graphics.printf(name, VIRTUAL_WIDTH/4+38, 60+i*13, 50, 'right')
@@ -26,5 +26,5 @@ function HighScoresState:render()
     end
 
     love.graphics.setFont(Gfonts['small'])
-    love.graphics.printf('Press enter to return to the main menu', 0, VIRTUAL_HEIGHT-18, VIRTUAL_WIDTH, 'center')
+    love.graphics.printf('Press escape to return to the main menu', 0, VIRTUAL_HEIGHT-18, VIRTUAL_WIDTH, 'center')
 end

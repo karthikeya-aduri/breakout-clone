@@ -7,6 +7,7 @@ function PlayState:enter(params)
     self.score = params.score
     self.bricks = params.bricks
     self.level = params.level
+    self.highScores = params.highScores
 
     self.ball.dx = math.random(-200, 200)
     self.ball.dy = math.random(-60, -30)
@@ -53,7 +54,8 @@ function PlayState:update(dt)
                     paddle = self.paddle,
                     health = self.health,
                     score = self.score,
-                    ball = self.ball
+                    ball = self.ball,
+                    highScores = self.highScores
                 })
             end
             if self.ball.x + 2 < brick.x and self.ball.dx > 0 then
@@ -78,14 +80,15 @@ function PlayState:update(dt)
         self.health = self.health - 1
         Gsounds['crash']:play()
         if self.health==0 then
-            GstateMachine:change('gameover', {score = self.score})
+            GstateMachine:change('gameover', {score = self.score, highScores = self.highScores})
         else
             GstateMachine:change('serve',{
                 paddle = self.paddle,
                 bricks = self.bricks,
                 health = self.health,
                 score = self.score,
-                level = self.level
+                level = self.level,
+                highScores = self.highScores
             })
         end
     end
