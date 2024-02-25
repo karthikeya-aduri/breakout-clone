@@ -49,8 +49,12 @@ function love.load()
         ['high-score'] = love.audio.newSource('sounds/highscore.wav', 'static'),
         ['pause'] = love.audio.newSource('sounds/pause.wav', 'static'),
 
+        --https://freesound.org/people/Seth_Makes_Sounds/sounds/657804/
         ['music'] = love.audio.newSource('sounds/music.wav', 'static')
     }
+
+    Gsounds['music']:setLooping(true)
+    Gsounds['music']:play()
 
     GstateMachine = StateMachine {
         ['start'] = function() return StartState() end,
