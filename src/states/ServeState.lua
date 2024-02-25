@@ -8,7 +8,8 @@ function ServeState:enter(params)
     self.level = params.level
     self.highScores = params.highScores
 
-    self.ball = Ball((self.level%7)+1)
+    self.ball = Ball(1)
+    self.ball.skin = (self.level%7==0) and 7 or (self.level%7)
 end
 
 function ServeState:update(dt)
