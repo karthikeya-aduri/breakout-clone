@@ -8,7 +8,7 @@ function ServeState:enter(params)
     self.level = params.level
     self.highScores = params.highScores
 
-    self.ball = Ball(math.random(7))
+    self.ball = Ball((self.level%7)+1)
 end
 
 function ServeState:update(dt)

@@ -24,7 +24,8 @@ function love.load()
         ['paddles'] = GenerateQuadsPaddles(Gtextures['main']),
         ['balls'] = GenerateQuadsBalls(Gtextures['main']),
         ['bricks'] = GenerateQuadsBricks(Gtextures['main']),
-        ['hearts'] = GenerateQuads(Gtextures['hearts'], 10, 9)
+        ['hearts'] = GenerateQuads(Gtextures['hearts'], 10, 9),
+        ['arrows'] = GenerateQuads(Gtextures['arrows'], 24, 24)
     }
 
     Push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
@@ -58,7 +59,8 @@ function love.load()
         ['gameover'] = function() return GameOverState() end,
         ['victory'] = function() return VictoryState() end,
         ['highscore'] = function() return HighScoresState() end,
-        ['enter-high-score'] = function() return EnterHighScoreState() end
+        ['enter-high-score'] = function() return EnterHighScoreState() end,
+        ['paddle-select'] = function() return PaddleSelectState() end
     }
     GstateMachine:change('start', {highScores = LoadHighScores()})
 
